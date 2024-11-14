@@ -1,0 +1,107 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f8f9fa;
+    color: #333;
+}
+
+.container {
+    max-width: 900px;
+    background-color: #fff;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.card-header {
+    text-align: center;
+    font-size: 1.2em;
+    font-weight: bold;
+    color: #333;
+}
+
+.table th {
+    background-color: #007bff;
+    color: #fff;
+    text-align: center;
+    font-weight: 600;
+}
+
+.table td {
+    text-align: center;
+    vertical-align: middle;
+}
+
+.table tbody tr:hover {
+    background-color: #f1f1f1;
+}
+
+.table td button {
+    padding: 6px 12px;
+    margin: 2px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    font-size: 0.9em;
+}
+
+.table td button.editar {
+    background-color: #28a745;
+    color: #fff;
+    border: none;
+}
+
+.table td button.editar:hover {
+    background-color: #218838;
+}
+
+.table td button.deletar {
+    background-color: #dc3545;
+    color: #fff;
+    border: none;
+}
+
+.table td button.deletar:hover {
+    background-color: #c82333;
+}
+
+.quantidade-btn {
+    background-color: #17a2b8;
+    color: #fff;
+    border: none;
+    padding: 5px 10px;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 50%;
+    transition: background-color 0.3s ease;
+}
+
+.quantidade-btn:hover {
+    background-color: #138496;
+}
+
+.card-body input[type="text"],
+.card-body input[type="number"] {
+    border-radius: 4px;
+    border: 1px solid #ddd;
+    padding: 10px;
+    font-size: 0.95em;
+    width: 100%;
+    margin-bottom: 10px;
+    transition: border-color 0.3s ease;
+}
+
+.card-body input[type="text"]:focus,
+.card-body input[type="number"]:focus {
+    border-color: #007bff;
+    outline: none;
+}
+
+.btn-success {
+    background-color: #007bff;
+    border: none;
+    transition: background-color 0.3s ease;
+}
+
+.btn-success:hover {
+    background-color: #0056b3;
+}

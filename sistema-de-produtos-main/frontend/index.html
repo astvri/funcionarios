@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema de Funcionários</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="bg-light">
+    <div class="container mt-5">
+        <h1 class="text-center text-primary mb-4">Sistema de Funcionários</h1>
+        
+        <div class="row">
+            <!-- Div de Cadastro à Esquerda -->
+            <div id="form-cadastro" class="col-md-4">
+                <div class="card shadow-sm mb-4">
+                    <div class="card-header bg-primary text-white">
+                        <h2 class="h5 mb-0">Cadastrar Funcionário</h2>
+                    </div>
+                    <div class="card-body">
+                        <form id="form-funcionario">
+                            <div class="form-group">
+                                <input type="text" id="nomeFuncionario" class="form-control" placeholder="Nome do Funcionário" required>
+                            </div>
+                            <div class="form-group">
+                                <input type="number" id="codigoFuncionario" class="form-control" placeholder="Código" required>
+                            </div>
+                            <div class="form-group">
+                                <input type="text" id="setorFuncionario" class="form-control" placeholder="Setor" required>
+                            </div>
+                            <div class="form-group">
+                                <input type="number" id="salarioFuncionario" class="form-control" placeholder="Salário" required>
+                            </div>
+                            <div class="form-group">
+                                <input type="number" id="cargaHorariaFuncionario" class="form-control" placeholder="Carga Horária" required>
+                            </div>
+                            <button type="submit" class="btn btn-success btn-block">Cadastrar</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Div de Lista de Funcionários à Direita com Scroll -->
+            <div id="lista-funcionarios" class="col-md-8">
+                <div class="card shadow-sm">
+                    <div class="card-header bg-secondary text-white">
+                        <h2 class="h5 mb-0">Lista de Funcionários</h2>
+                    </div>
+                    <div class="table-responsive" style="max-height: 400px; overflow-y: auto;">
+                        <table id="funcionarios-tabela" class="table table-bordered table-striped mb-0">
+                            <thead class="thead-light">
+                                <tr>
+                                    <th>Código</th>
+                                    <th>Nome</th>
+                                    <th>Setor</th>
+                                    <th>Salário</th>
+                                    <th>Carga Horária</th>
+                                    <th>Ações</th>
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script>
+        // Função para deletar o funcionário
+        async function deletarFuncionario(codigo) {
+            // Faça a requisição para deletar o funcionário (simulando uma API local aqui)
+            console.log(`Deletando funcionário com código: ${codigo}`);
+
+            // Para simplificação, vamos apenas remover a linha da tabela (simulando uma exclusão)
+            const tabela = document.getElementById("funcionarios-tabela").getElementsByTagName("tbody")[0];
+            const linhas = tabela.getElementsByTagName("tr");
+            for (let i = 0; i < linhas.length; i++) {
+                if (linhas[i].cells[0].innerText == codigo) {
+                    tabela.deleteRow(i);
+                    break;
+                }
+            }
+        }
+
+        // Função para editar o funcionário
+        async function editarFuncionario(codigo) {
+            // Obtendo os dados do funcionário (simulação de uma API)
+            const tabela = document.getElementById("funcionarios-tabela").getElementsByTagName("tbody")[0];
+            const linhas = tabela.getElementsByTagName("tr");
+
+            let funcionario = null;
+            for (let i = 0; i < linhas.length; i++) {
+                if (linhas[i].cells[0].innerText == codigo) {
+                    funcionario = {
+                        codigo: linhas[i].cells[0].innerText,
+                        nome: linhas[i].cells[1].innerText,
+                        setor: linhas[i].cells[2].innerText,
+                        salario: linhas[i].cells[3].innerText,
+                        cargaHoraria: linhas[i].cells[4].innerText,
+                    };
+                    break;
+                }
+            }
+
+            if (funcionario) {
+                // Preencher os campos do formulário de edição com os dados do funcionário
+                document.getElementById("codigoFuncionario").value = funcionario.codigo;
+                document.getElementById("nomeFuncionario").value = funcionario.nome;
+                document.getElementById("setorFuncionario").value = funcionario.setor;
+                document.getElementById("salarioFuncionario").value = funcionario.salario;
+                document.getElementById("cargaHorariaFuncionario").value = funcionario.cargaHoraria;
+            }
+        }
+
+        document.getElementById("form-funcionario").addEventListener("submit", function(event) {
+            event.preventDefault();
+
+            // Obtendo os valores dos campos do formulário
+            const nome = document.getElementById("nomeFuncionario").value;
+            const codigo = document.getElementById("codigoFuncionario").value;
+            const setor = document.getElementById("setorFuncionario").value;
+            const salario = document.getElementById("salarioFuncionario").value;
+            const cargaHoraria = document.getElementById("cargaHorariaFuncionario").value;
+
+            // Criando ou atualizando uma linha na tabela de funcionários
+            const tabela = document.getElementById("funcionarios-tabela").getElementsByTagName("tbody")[0];
+            const linhas = tabela.getElementsByTagName("tr");
+            let linhaExistente = false;
+
+            for (let i = 0; i < linhas.length; i++) {
+                if (linhas[i].cells[0].innerText == codigo) {
+                    // Atualizando a linha existente
+                    linhas[i].cells[1].innerText = nome;
+                    linhas[i].cells[2].innerText = setor;
+                    linhas[i].cells[3].innerText = salario;
+                    linhas[i].cells[4].innerText = cargaHoraria;
+                    linhaExistente = true;
+                    break;
+                }
+            }
+
+            if (!linhaExistente) {
+                // Criando uma nova linha se o código não foi encontrado
+                const novaLinha = tabela.insertRow();
+                novaLinha.innerHTML = `
+                    <td>${codigo}</td>
+                    <td>${nome}</td>
+                    <td>${setor}</td>
+                    <td>${salario}</td>
+                    <td>${cargaHoraria}</td>
+                    <td>
+                        <button class="editar btn btn-warning" onclick="editarFuncionario(${codigo})">Editar</button>
+                        <button class="deletar btn btn-danger" onclick="deletarFuncionario(${codigo})">Deletar</button>
+                    </td>
+                `;
+            }
+
+            // Limpando o formulário
+            document.getElementById("form-funcionario").reset();
+        });
+    </script>
+</body>
+</html>
